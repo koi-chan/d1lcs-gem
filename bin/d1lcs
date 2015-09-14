@@ -1,0 +1,51 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "d1lcs"
+
+def output_help
+  print <<__EOT__
+でたとこサーガ用1行のキャラクターシート生成ツール
+  出力したいキャラクターシートIDをオプションで指定してください。
+  半角空白で区切ると複数のキャラクターについて出力できます。
+  title という文字をオプションの中に含めると、タイトル行を先頭に出力します。
+
+キャラクターIDの調べ方
+  『でたとこサーガ』公式サイトの「キャラクターシート登録所」のキャラクターページのURLをご覧ください。
+  最後に書かれた数字が、そのキャラクターのIDです。
+  「王道勇者」(http://detatoko-saga.com/character/1) の場合、IDは 1 になります。
+
+例:
+  $ d1lcs title 1
+  名前        |Lv|体力　気力 旗|クラス　|スキル　　　|意感交肉技知|ID  |プレイヤー
+  王道勇者    |１|11/11 10/10 0|勇者戦士|聖希折鉄強必|１１　４　　|   1|でたとこサーガ
+  
+  $ d1lcs 1 2
+  王道勇者    |１|11/11 10/10 0|勇者戦士|聖希折鉄強必|１１　４　　|   1|でたとこサーガ
+  暗黒魔王    |１|10/10 11/11 0|魔王暗黒|無圧極ド暗愉|３１１　　１|   2|でたとこサーガ
+
+__EOT__
+end
+
+outputs = [nil]
+errors = []
+
+ARGV.each { |arg|
+  case arg
+  when /-h|--help/
+    output_help
+    exit
+  when 'title'
+    outputs[0] = D1lcs.title_line
+  else
+    cs = D1lcs::Element.new(arg)
+    if(cs.error != nil)
+      errors <<  cs.error
+      next
+    end
+    outputs << cs.chara_sheet_line
+  end
+}
+
+puts outputs.compact
+puts errors
