@@ -23,12 +23,16 @@ module D1lcs
       @logger = Logger.new(STDERR)
       @logger.progname = 'Detatoko1LineCharaSheet'
 
-      unless @request = check_id(request)
+      unless(@request = check_id(request))
         @error = "Error: キャラクターシートID '#{request}' は無効です"
         return
       end
-      if (@chara_sheet = json_parse) == nil
+      if(@chara_sheet = json_parse) == nil
         @error = "Error: キャラクターシートID '#{request}' を読み込めませんでした"
+        return
+      end
+      unless(chara_exist)
+        @error = "Error: キャラクターシートID '#{request}' は存在しません"
         return
       end
 
@@ -136,6 +140,12 @@ module D1lcs
         @logger.error { ["requestID:#{@request}", e.class, e].join(' : ') }
         nil
       end
+    end
+
+    # キャラクターが存在するか調べる
+    # @return [Boolean]
+    def chara_exist
+      @chara_sheet['id'] != 0
     end
 
     # 半角2文字幅で表示をそろえるため数字の全角・半角を調整する
