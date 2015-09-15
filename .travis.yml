@@ -1,4 +1,27 @@
 language: ruby
 rvm:
-  - 2.2.2
+  - '1.9.3'
+  - '2.0.0'
+  - '2.1.7'
+  - '2.2.3'
 before_install: gem install bundler -v 1.10.6
+bundler_args: --deployment --path vendor/bundle
+cache: 
+  directories:
+    - vendor/bundle
+script:
+  - 'bundle exec bin/d1lcs --help'
+  - 'bundle exec bin/d1lcs 1'
+  - 'bundle exec bin/d1lcs title 1'
+  - 'bundle exec bin/d1lcs 1 2 title'
+notifications:
+  irc:
+    use_notice: true
+    channels: 
+      - 'irc.trpg.net#koi-chan'
+    on_success: always
+    on_failure: always
+    template:
+      - '%{repository_slug} #%{build_number} %{branch} - %{commit} -> %{result}'
+      - '変更履歴: %{compare_url}'
+      - 'ステータス: %{build_url}'
