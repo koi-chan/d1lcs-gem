@@ -135,7 +135,12 @@ module D1lcs
     # @return [Hash]
     def json_parse
       begin
-        JSON.parse(open(URI.parse(CHARA_SHEET_URL % @request)).read)
+        open(
+          URI.parse(CHARA_SHEET_URL % @request),
+          'User-Agent' => D1lcs::USER_AGENT
+        ) { |f|
+          JSON.parse(f.read)
+        }
       rescue => e
         @logger.error { ["requestID:#{@request}", e.class, e].join(' : ') }
         nil
