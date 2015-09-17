@@ -41,7 +41,7 @@ ARGV.each { |arg|
   else
     cs = D1lcs::Element.new(arg)
     if(cs.error != nil)
-      errors <<  cs.error
+      errors << "Error: #{cs.error}"
       next
     end
     outputs << cs.chara_sheet_line

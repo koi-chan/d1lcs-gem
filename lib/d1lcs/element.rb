@@ -24,15 +24,15 @@ module D1lcs
       @logger.progname = 'Detatoko1LineCharaSheet'
 
       unless(@request = check_id(request))
-        @error = "Error: キャラクターシートID '#{request}' は無効です"
+        @error = "キャラクターシートID '#{request}' は無効です"
         return
       end
       if(@chara_sheet = json_parse) == nil
-        @error = "Error: キャラクターシートID '#{request}' を読み込めませんでした"
+        @error = "キャラクターシートID '#{request}' を読み込めませんでした"
         return
       end
       unless(chara_exist)
-        @error = "Error: キャラクターシートID '#{request}' は存在しません"
+        @error = "キャラクターシートID '#{request}' は存在しません"
         return
       end
 
