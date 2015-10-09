@@ -36,20 +36,22 @@ module D1lcs
         return
       end
 
-      @pcname = pcname
-      @level = level
-      @hpmp = hpmp
-      @classes = classes
-      @skills = skills
-      @timing, @janre = timing_janre
-      @charaID = charaID
-      @plname = plname
+      @formatted = [pcname,
+                    level,
+                    hpmp,
+                    classes,
+                    position_skill,
+                    skills,
+                    timing_janre,
+                    charaID,
+                    plname
+      ].flatten
     end
 
     # 1行キャラクターシートを出力する
     # @return [String]
     def chara_sheet_line
-      [@pcname, @level, @hpmp, @classes, @skills, @janre, @charaID, @plname].join('|')
+      @formatted.clone.fill(nil, 6..6).compact.join('|')
     end
     alias :print :chara_sheet_line
     alias :to_s :chara_sheet_line
@@ -90,14 +92,25 @@ module D1lcs
       @chara_sheet['skill'].map { |array| array['name'].chars.first }.join
     end
 
+    # ポジションスキル
+    # @return [String]/[nil]
+    def position_skill
+      if(@chara_sheet['position'])
+        positionID_short(@chara_sheet['position']['id'])
+      else
+        '　　'
+      end
+    end
+
     # スキルタイミング・ジャンル
     # @return [Array<String>] [timing, string] の順番
     def timing_janre
       timing = [0, 2, 1, 0]
       janre = Array.new(6, 0)
-      @chara_sheet['skill'].each { |skill|
-        timing[skill['timing'].to_i - 1] += 1
-        janre[skill['janre'].to_i - 1] += 1
+      (@chara_sheet['skill'] + [@chara_sheet['position_skill']])
+        .each { |skill|
+          timing[skill['timing'].to_i - 1] += 1
+          janre[skill['janre'].to_i - 1] += 1
       }
       [timing, janre].map { |array|
         array.map { |value|
@@ -174,6 +187,17 @@ module D1lcs
                    'メカ', '商人', '占師'               # フロンティア
       ]
       class_ids[class_id.to_i - 1]
+    end
+
+    # ポジションIDから全角2文字の短縮形に変換する
+    # @param [Fixnum] position_id JSONから読み込むことを考慮し文字列型
+    # @return [String]
+    def positionID_short(position_id)
+      position_ids = ['冒険', '凡人', '夢追', '神話', '負犬', '守護',
+                      '悪党', 'カリ', '修羅', '遊人', '従者', '正不',
+                      '迷子', '伝説', '罪人', '傷追', '型破', '裏住'
+      ]
+      position_ids[position_id - 1]
     end
   end
 end

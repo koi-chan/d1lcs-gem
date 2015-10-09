@@ -1,4 +1,5 @@
 # coding: UTF-8
+
 require 'd1lcs/version'
 require 'd1lcs/string'
 require 'd1lcs/element'
@@ -14,6 +15,7 @@ module D1lcs
       'Lv',
       '体力　気力 旗',
       'クラス　',
+      'ポジ',
       'スキル　　　',
       '意感交肉技知',
       'ID  ',
