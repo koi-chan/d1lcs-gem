@@ -6,7 +6,7 @@ describe D1lcs do
   end
 
   it 'returns title line' do
-    expect(D1lcs.title_line).to eq('名前        |Lv|体力　気力 旗|クラス　|ポジ||スキル　　　|意感交肉技知|ID  |プレイヤー')
+    expect(D1lcs.title_line).to eq('名前        |Lv|体力　気力 旗|クラス　|ポジ|スキル　　　|意感交肉技知|ID  |プレイヤー')
   end
 
   it 'output ID=1' do
@@ -14,6 +14,6 @@ describe D1lcs do
   end
 
   it 'output ID=0' do
-    expect(D1lcs::Element.new(0).error).to eq("Error: キャラクターシートID '0' は無効です")
+    expect(D1lcs::Element.new(0).error).to eq("キャラクターシートID '0' は無効です")
   end
 end

@@ -105,13 +105,18 @@ module D1lcs
     # スキルタイミング・ジャンル
     # @return [Array<String>] [timing, string] の順番
     def timing_janre
-      timing = [0, 2, 1, 0]
-      janre = Array.new(6, 0)
-      (@chara_sheet['skill'] + [@chara_sheet['position_skill']])
-        .each { |skill|
-          timing[skill['timing'].to_i - 1] += 1
-          janre[skill['janre'].to_i - 1] += 1
+      timing = [0, 1, 2, 0]   # 常時, 対応, 行動, 誘発
+      janre = Array.new(6, 0) # 意志, 感覚, 交渉, 肉体, 技術, 知識
+      @chara_sheet['skill'].each { |skill|
+        timing[skill['timing'].to_i] += 1
+        janre[skill['janre'].to_i - 1] += 1
+p skill['timing_name']
       }
+      if(@chara_sheet['position'])
+        timing[@chara_sheet['position_skill']['timing'].to_i] += 1
+        janre[@chara_sheet['position_skill']['janre'].to_i - 1] += 1
+      end
+p timing
       [timing, janre].map { |array|
         array.map { |value|
           unify_dispsize2(value.to_s).tr('０', '　')
@@ -194,7 +199,7 @@ module D1lcs
     # @return [String]
     def positionID_short(position_id)
       position_ids = ['冒険', '凡人', '夢追', '神話', '負犬', '守護',
-                      '悪党', 'カリ', '修羅', '遊人', '従者', '正不',
+                      '悪党', 'カリ', '修羅', '遊人', '従者', '不明',
                       '迷子', '伝説', '罪人', '傷追', '型破', '裏住'
       ]
       position_ids[position_id - 1]
