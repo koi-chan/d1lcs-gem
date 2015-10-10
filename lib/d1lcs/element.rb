@@ -110,13 +110,11 @@ module D1lcs
       @chara_sheet['skill'].each { |skill|
         timing[skill['timing'].to_i] += 1
         janre[skill['janre'].to_i - 1] += 1
-p skill['timing_name']
       }
       if(@chara_sheet['position'])
         timing[@chara_sheet['position_skill']['timing'].to_i] += 1
         janre[@chara_sheet['position_skill']['janre'].to_i - 1] += 1
       end
-p timing
       [timing, janre].map { |array|
         array.map { |value|
           unify_dispsize2(value.to_s).tr('０', '　')
