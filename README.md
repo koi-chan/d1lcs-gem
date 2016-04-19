@@ -1,26 +1,38 @@
 # D1lcs
 
+[![Build Status](https://travis-ci.org/koi-chan/d1lcs-gem.svg?branch=master)](https://travis-ci.org/koi-chan/d1lcs-gem)
+
 でたとこサーガ用1行のキャラクターシート生成ライブラリ
 
 ## Installation
 
-Add this line to your application's Gemfile:
+プログラムでライブラリとして使うには、Gemfile に以下の行を追加してください。
 
 ```ruby
 gem 'd1lcs'
 ```
 
-And then execute:
+その後、いつも通りインストールをします。
 
-    $ bundle
+    $ bundle install
 
-Or install it yourself as:
+実行ファイルとして使うには以下を実行してシステムにインストールします。
 
     $ gem install d1lcs
 
 ## Usage
 
 TODO: Write usage instructions here
+
+## テスト環境
+
+Travis-CI で、以下のバージョンの ruby でのテストを行なっています。
+
+* 1.9.3
+* 2.0.0
+* 2.1.10
+* 2.2.3
+* 2.3.0
 
 ## Development
 
