@@ -10,7 +10,7 @@ module D1lcs
     # 1キャラシ(1行)を作成する各要素を用意するためのクラス
     
     # オンラインキャラクターシートのJSON出力用URL
-    CHARA_SHEET_URL = 'http://detatoko-saga.com/character/%d.json'
+    CHARA_SHEET_URL = 'http://detatoko-saga.com/character/%d.js'
 
     # エラーが発生した時
     attr_reader :error
