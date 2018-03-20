@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    d1lcs (0.5.4)
+    d1lcs (0.5.5)
 
 GEM
   remote: https://rubygems.org/
@@ -17,7 +17,7 @@ GEM
       rspec-core (~> 3.7.0)
       rspec-expectations (~> 3.7.0)
       rspec-mocks (~> 3.7.0)
-    rspec-core (3.7.0)
+    rspec-core (3.7.1)
       rspec-support (~> 3.7.0)
     rspec-expectations (3.7.0)
       diff-lcs (>= 1.2.0, < 2.0)
@@ -25,7 +25,7 @@ GEM
     rspec-mocks (3.7.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.7.0)
-    rspec-support (3.7.0)
+    rspec-support (3.7.1)
 
 PLATFORMS
   ruby
